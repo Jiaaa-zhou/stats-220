@@ -8,7 +8,8 @@ This is my repo for STATS 220.
 - I am taking STATS 220 because I want to have a better understanding of the statistics major.
 - I am interested in learning about calculate the data results.
 
-A patrick star that captures how I currently feel about my university studies is ![](https://tenor.com/zh-CN/view/patrick-gif-7005646713457458685)
+A meme that captures how I currently feel about my university studies is ![]
+(https://tenor.com/zh-CN/view/patrick-gif-7005646713457458685)
 
 ### My study goals
 1. Have a basic understanding of R
