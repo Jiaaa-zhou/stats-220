@@ -1,0 +1,78 @@
+---
+title: "Bus Waiting Time Observation: Dynamic Report"
+output: html_fragment
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE, error=FALSE)
+library(tidyverse)
+```
+
+```{css}
+
+```
+
+## What's going on with this data?
+
+You need to change the contents of this Rmd! Replace the R code and markdown give below in this template document.
+
+```{r}
+#Import the bus observation data
+url <- "https://docs.google.com/spreadsheets/d/e/2PACX-1vR-d4fLfviHZO3YPpxDDLGCwdqxegvsx0l6vlj6rD9K0PU8e4T0LRrq7yLQNLBcZWWI3dCP_3dRV4RQ/pub?output=csv"
+
+bus_data <- read_csv(url)
+
+# Calculate summary statistics
+time_period_summary <- bus_data %>%
+  group_by(`What time period did you wait for the bus?`) %>%
+  summarise(
+    count = n(),
+    avg_wait = mean(`How many minutes did you wait for the bus?`),
+    min_wait = min(`How many minutes did you wait for the bus?`),
+    max_wait = max(`How many minutes did you wait for the bus?`)
+  )
+
+route_summary <- bus_data %>%
+  group_by(`Which bus route did you take today?`) %>%
+  summarise(
+    count = n(),
+    avg_wait = mean(`How many minutes did you wait for the bus?`)
+  )
+
+ggplot(bus_data, aes(x = `How many minutes did you wait for the bus?`)) +
+  geom_histogram(binwidth = 1, fill = "steelblue", color = "black") +
+  labs(
+    title = "Distribution of Bus Waiting Times",
+    x = "Waiting Time (Minutes)",
+    y = "Frequency"
+  )
+
+time_period_summary %>%
+  rename(
+    `Time Period` = `What time period did you wait for the bus?`,
+    `Number of Observations` = count,
+    `Average Wait (min)` = avg_wait,
+    `Min Wait (min)` = min_wait,
+    `Max Wait (min)` = max_wait
+  ) %>%
+  knitr::kable()
+
+ggplot(time_period_summary, aes(x = `What time period did you wait for the bus?`, y = avg_wait)) +
+  geom_col(fill = "orange", color = "black") +
+  labs(
+    title = "Average Waiting Time by Time Period",
+    x = "Time Period",
+    y = "Average Waiting Time (Minutes)"
+  ) +
+  theme(axis.text.x = element_text(angle = 15, hjust = 1))
+
+ggplot(route_summary, aes(x = `Which bus route did you take today?`, y = avg_wait)) +
+  geom_col(fill = "purple", color = "black") +
+  labs(
+    title = "Average Waiting Time by Bus Route",
+    x = "Bus Route",
+    y = "Average Waiting Time (Minutes)"
+  ) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
