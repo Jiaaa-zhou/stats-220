@@ -19,3 +19,4 @@ A meme that captures how I currently feel about my university studies is ![]
 This is **bold text** to highlight points, this is *italic text* for emphasis.
 
 I play games on this website when I'm bored.(https://play2048.co/)
+。
